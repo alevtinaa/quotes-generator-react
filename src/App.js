@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './styles.css';
+import QuoteContainer from './components/QuoteContainer';
+import ShowQuoteButton from './components/buttons/ShowQuoteButton';
 
-function App() {
+export default () => {
+
+  let [quote, setQuote] = useState(null);
+  let [isFetching, setIsFetching] = useState(false);
+
+  let randomizer = (min, max) => Math.floor(Math.random() * (max - min) + min);
+
+  let clickhandler = () => {
+      setIsFetching(true);
+      fetch('https://type.fit/api/quotes')
+      .then(response => response.json())
+      .then(quotes => {
+        setQuote(quotes[randomizer(0, quotes.length)]);
+        setIsFetching(false);
+      });
+    };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className='page'
+      >
+        <QuoteContainer
+          quote={quote}
+          isFetching={isFetching}
+          />
+        <ShowQuoteButton
+          clickhandler={clickhandler}
+          />
     </div>
-  );
-}
-
-export default App;
+  )
+};
