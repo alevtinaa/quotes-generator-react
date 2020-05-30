@@ -4,6 +4,7 @@ import Quote from './Quote';
 import Loader from './Loader';
 import QuotationMark from './QuotationMark';
 import SMButtons from './buttons/SMButtons';
+import ShowPreviousButton from './buttons/ShowPreviousButton';
 
 export default (props) => {
   return (
@@ -11,15 +12,19 @@ export default (props) => {
       className='container'>
       <QuotationMark
         />
-        {props.isFetching ?
-          <Loader />
-          : props.quote
-            &&  <Quote
-                quote={props.quote}
-                />
-        }
+        <ShowPreviousButton
+          showPrevious={props.showPrevious}
+          isEmpty={!props.quote.previous}
+          />
+          {props.isFetching ?
+            <Loader />
+            : props.quote.current
+              &&  <Quote
+                  quote={props.quote.current}
+                  />
+                }
       <SMButtons
-        quote={props.quote}
+        quote={props.quote.current}
         />
     </div>
   )

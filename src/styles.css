@@ -38,7 +38,7 @@ body {
 }
 
 .quote-text {
-  font-size: 18pt;
+  font-size: 4vmin;
   text-align: center;
 }
 
@@ -92,4 +92,23 @@ body {
 
 .sm-button img {
   height: 3vh;
+}
+
+.show-previous-button {
+  position: absolute;
+  top: 2vh;
+  left: 1vh;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.show-previous-button img {
+  height: 3vh;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
